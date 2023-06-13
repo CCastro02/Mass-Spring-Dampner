@@ -6,24 +6,24 @@ g = vector(0, -9.8, 0)
 L0 = 0.07
 damping = 2
 
-top = box(pos=vector(0, L0, 0), length=0.4, height=0.005, width=0.005)
+ground = box(pos=vector(0, L0, 0), length=0.4, height=0.005, width=0.005)
 
-mass1 = sphere(pos=top.pos-vector(.3*L0, L0, 0), radius=0.01,
+mass1 = sphere(pos=ground.pos-vector(.3*L0, L0, 0), radius=0.01,
                color=color.yellow, make_trail=True)
 
-spring1 = helix(pos=top.pos, axis=mass1.pos-top.pos,
+spring1 = helix(pos=ground.pos, axis=mass1.pos-ground.pos,
                 radius=0.005, thickness=0.003, color=color.yellow)
 
-mass2 = sphere(pos=top.pos-vector(L0, 2.5*L0, 0), radius=0.01,
+mass2 = sphere(pos=ground.pos-vector(L0, 2.5*L0, 0), radius=0.01,
                color=color.red, make_trail=True)
 
 spring2a = helix(pos=mass1.pos, axis=(mass2.pos-mass1.pos),
                  radius=0.005, thickness=0.003, color=color.orange)
 
-spring2b = helix(pos=top.pos, axis=mass2.pos-top.pos,
+spring2b = helix(pos=ground.pos, axis=mass2.pos-ground.pos,
                  radius=0.005, thickness=0.003, color=color.red)
 
-mass3 = sphere(pos=top.pos-vector(1.3*L0, 3.5*L0, 0), radius=0.01,
+mass3 = sphere(pos=ground.pos-vector(1.3*L0, 3.5*L0, 0), radius=0.01,
                color=color.blue, make_trail=True)
 
 spring3 = helix(pos=mass2.pos, axis=mass3.pos-mass2.pos,
@@ -40,7 +40,7 @@ while t < 5:
     rate(100)
 
     # Movement for mass and spring 1
-    L1 = mass1.pos - top.pos
+    L1 = mass1.pos - ground.pos
     spring1.axis = L1
     F1 = -k*(mag(L1)-L0)*norm(L1) + m*g
     mass1.p = mass1.p + F1*dt
@@ -55,7 +55,7 @@ while t < 5:
     mass2.pos = mass2.pos + mass2.p*dt/m
 
     # Movement for spring 2b
-    L2b = mass2.pos - top.pos
+    L2b = mass2.pos - ground.pos
     spring2b.axis = L2b
     F2b = -k*(mag(L2b)-L0)*norm(L2b) + m*g
     mass2.p = mass2.p + F2b*dt
