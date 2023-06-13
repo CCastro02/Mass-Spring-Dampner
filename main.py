@@ -1,6 +1,4 @@
 from vpython import *
-import time
-import ipywidgets as wg
 
 m = 0.1
 k = 10.5
@@ -62,8 +60,6 @@ while t < 5:
     F2b = -k*(mag(L2b)-L0)*norm(L2b) + m*g
     mass2.p = mass2.p + F2b*dt
     mass2.pos = mass2.pos + mass2.p*dt/m
-
-    L2 = .5 * (L2a + L2b)
 
     # Movement for mass and spring 3
     L3 = mass3.pos - mass2.pos
